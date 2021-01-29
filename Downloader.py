@@ -72,7 +72,7 @@ if __name__ == '__main__':
     # v = url
     current_json_path = None
     current_directory = None
-    update_list = []
+    update_list = dict()
     for k, v in imagePath_imageURL_dict.items():
         # update current_directory and current_json_dict when changing directory
         if (not current_json_path) or (current_directory != os.path.dirname(k)):
@@ -86,7 +86,18 @@ if __name__ == '__main__':
         shape = cv2.imread(k, 0).shape
 
         update_info = {
-            'json_path':
+            'json_path': current_json_path,
+            'image_url': v,
+            'shape': shape
         }
 
-        update_json(current_json_path, k.split('/')[-1], shape)
+        if current_directory not in update_list.keys():
+            update_list[current_directory] = []
+
+        update_list[current_directory].append(update_info)
+
+    pretty_print(update_list)
+
+
+
+
