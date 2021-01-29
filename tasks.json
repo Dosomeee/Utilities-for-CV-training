@@ -1,0 +1,157 @@
+{
+    "data": {
+        "items": [
+            {
+                "creation_time": 1611734657,
+                "dataset_uuid": "f8474e68-1435-4cd1-94bd-0261ed3126e5",
+                "executor": {
+                    "alias": null,
+                    "username": "Claire",
+                    "uuid": "a588d226-071c-4830-81f1-12f615917628"
+                },
+                "meta": {
+                    "endDate": "2021-01-30",
+                    "labelType": "SEGMENTATION",
+                    "taskDesc": "",
+                    "taskName": "soil_cover_5",
+                    "taskPassAI": false,
+                    "taskUserName": "Claire"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 0,
+                    "total": 22
+                },
+                "status": "ONGOING",
+                "uuid": "4e0c9d31-3dbd-47c4-b874-f72949844779"
+            },
+            {
+                "creation_time": 1611733993,
+                "dataset_uuid": "0ea04be0-1af5-4c5f-92b2-824201103586",
+                "executor": {
+                    "alias": null,
+                    "username": "Claire",
+                    "uuid": "a588d226-071c-4830-81f1-12f615917628"
+                },
+                "meta": {
+                    "endDate": "2021-01-30",
+                    "labelType": "SEGMENTATION",
+                    "taskDesc": "",
+                    "taskName": "soil_cover_2",
+                    "taskPassAI": false,
+                    "taskUserName": "Claire"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 5,
+                    "total": 5
+                },
+                "status": "COMMITTED",
+                "uuid": "6ce5d165-e139-4191-8ced-e2822fcd8ea4"
+            },
+            {
+                "creation_time": 1611734042,
+                "dataset_uuid": "04e547eb-6103-40b2-b462-a4ab2b76ed0a",
+                "executor": {
+                    "alias": null,
+                    "username": "Claire",
+                    "uuid": "a588d226-071c-4830-81f1-12f615917628"
+                },
+                "meta": {
+                    "endDate": "2021-01-30",
+                    "labelType": "SEGMENTATION",
+                    "taskDesc": "",
+                    "taskName": "soil_cover_1",
+                    "taskPassAI": false,
+                    "taskUserName": "Claire"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 8,
+                    "total": 8
+                },
+                "status": "COMMITTED",
+                "uuid": "c680d6db-28e8-43fe-9ea7-7da5964feb09"
+            },
+            {
+                "creation_time": 1611734066,
+                "dataset_uuid": "54c27366-1e24-434b-bc9e-b5e11a47e954",
+                "executor": {
+                    "alias": null,
+                    "username": "Claire",
+                    "uuid": "a588d226-071c-4830-81f1-12f615917628"
+                },
+                "meta": {
+                    "endDate": "2021-01-30",
+                    "labelType": "SEGMENTATION",
+                    "taskDesc": "",
+                    "taskName": "soil_cover_3",
+                    "taskPassAI": false,
+                    "taskUserName": "Claire"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 15,
+                    "total": 15
+                },
+                "status": "COMMITTED",
+                "uuid": "df7ed7ef-42fd-4872-a7ce-8b4e13dd6504"
+            },
+            {
+                "creation_time": 1611734099,
+                "dataset_uuid": "aba8ab92-9a72-4009-af9a-0a0f98862b83",
+                "executor": {
+                    "alias": null,
+                    "username": "Claire",
+                    "uuid": "a588d226-071c-4830-81f1-12f615917628"
+                },
+                "meta": {
+                    "endDate": "2021-01-30",
+                    "labelType": "SEGMENTATION",
+                    "taskDesc": "",
+                    "taskName": "soil_cover_4",
+                    "taskPassAI": false,
+                    "taskUserName": "Claire"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 3,
+                    "total": 18
+                },
+                "status": "ONGOING",
+                "uuid": "f844bef9-5a4a-4150-bd07-dcca0a3a23de"
+            },
+            {
+                "creation_time": 1611305367,
+                "dataset_uuid": "a145ec9a-edc2-4c85-8777-960636eb826c",
+                "executor": {
+                    "alias": "\u4ed9\u54e5",
+                    "username": "\u5927\u4ed9",
+                    "uuid": "01aa7876-123b-4557-8eb6-df1865854ee9"
+                },
+                "meta": {
+                    "endDate": "2021-01-29",
+                    "labelType": "DETECTION",
+                    "taskDesc": "\u4e0d\u6025\u4e86\uff0c\u65f6\u95f4\u8fd8\u957f",
+                    "taskName": "\u6668\u4f1a\u4ea4\u5e95",
+                    "taskPassAI": false,
+                    "taskUserName": "\u5927\u4ed9"
+                },
+                "next_task_uuid": null,
+                "progress": {
+                    "labeled": 108,
+                    "total": 108
+                },
+                "status": "COMMITTED",
+                "uuid": "fbbc0208-fbbc-4389-a9e3-9c931ffdcf1d"
+            }
+        ],
+        "page_index": 1,
+        "page_size": 1000,
+        "total_item": 6
+    },
+    "err_code": null,
+    "is_successful": true,
+    "msg": "Operation_successful",
+    "status_code": 200
+}

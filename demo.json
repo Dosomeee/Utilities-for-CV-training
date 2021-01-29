@@ -6,6 +6,7 @@
       "uuid": "a730ad0c-3419-460c-86ba-54db6c0471d4",
       "height": 20,
       "width": 100,
+      "label_type": "SEGMENTATION",
       "label": [
         {
           "category_id": "cf6c9df68ded66fc2c9d509d76ae22cc",
