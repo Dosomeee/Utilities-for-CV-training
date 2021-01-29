@@ -85,19 +85,35 @@ if __name__ == '__main__':
         loop.run_until_complete(download_image(v, k))
         shape = cv2.imread(k, 0).shape
 
-        update_info = {
-            'json_path': current_json_path,
-            'image_url': v,
-            'shape': shape
-        }
+        update_info = {v: shape}
 
-        if current_directory not in update_list.keys():
-            update_list[current_directory] = []
+        if current_json_path not in update_list.keys():
+            update_list[current_json_path] = dict()
 
-        update_list[current_directory].append(update_info)
+        update_list[current_json_path].update(update_info)
 
-    pretty_print(update_list)
+    for json_path, images in update_list.items():
+        with open(json_path) as json_file:
+            json_dataset = json.load(json_file)
 
+            new_images = []
 
+            for i in json_dataset['images']:
+                temp = i.copy()
+                temp['height'] = images[temp['url']][0]
+                temp['width'] = images[temp['url']][1]
+                new_images.append(temp)
 
+            new_dataset = {
+                "label_type": json_dataset['label_type'],
+                "images": new_images,
+                "label_category": json_dataset['label_category']
+            }
 
+        os.remove(json_path)
+        with open(json_path, 'w') as output:
+            json.dump(new_dataset, output, indent=4)
+            print("Saved to: ", json_path)
+            # json_file.seek(0)
+            # json.dump(new_dataset, json_file, indent=4)
+            # json_file.truncate()
