@@ -11,18 +11,7 @@ import aiofiles
 import cv2
 import pickle
 
-# 1. Login and get a user token
-# 2. Use this user token, to get a uuid
-# 3. This user may have many published task and assigned task, we only take published task
-# 4. Use that user uuid to get a list of his tasks
-# 5. Each task contains 3 important info, its dataset uuid, its own uuid and its status
-# 6. Only "COMMITTED" tasks have labels on dataset
-# 7.
-#         for each tasks
-#             if it is COMMITTED
-#                 use /dataset/{dataset_uuid} to get its dataset info
-#                 for image in dataset
-#                     use image_uuid, task_uuid to get label to this image
+# This file is used as test file to test new functions
 
 logging.basicConfig(
     format="%(asctime)s %(levelname)s:%(name)s: %(message)s",
@@ -157,7 +146,7 @@ def get_label_info(task_uuid, image_uuid, user_token):
     return label_json
 
 
-def get_dataset(username, password):
+def download_dataset(username, password):
     user_uuid, user_token = get_user_info(username, password)
     task_json = get_task_info(user_uuid, user_token)
 
@@ -225,7 +214,7 @@ if __name__ == "__main__":
     Min = ['+86 15137393991', '123456']
     Qing = ['+86 15536902280', 'cike567']
 
-    result_path = './results'
+    result_path = './Results_Upgrade'
     username = Min[0]
     pwd = Min[1]
 
@@ -233,6 +222,6 @@ if __name__ == "__main__":
     nickname = loop.run_until_complete(get_nickname(uuid, token))
 
     # for published tasks which are "COMMITTED' and "ACHIEVED"
-    datasets = get_dataset(username=username, password=pwd)
+    datasets = download_dataset(username=username, password=pwd)
     save_to_folder(datasets, nickname, result_path)
 
