@@ -504,15 +504,15 @@ if __name__ == "__main__":
     Qing = ['+86 15536902280', 'cike567']
 
     result_path = './results'
-    username = Min[0]
-    pwd = Min[1]
+    username = Qing[0]
+    pwd = Qing[1]
 
-    # utils = Utils(username, pwd, result_path)
-    # # utils.set_nickname('小齐')
-    # # utils.set_user_result_path()
-    # utils.download_dataset(option=1, which_task="无锡电梯超员_24899_2021_01_04")
-    # utils.download_images(which_task="无锡电梯超员_24899_2021_01_04")
-    # utils.save_state()
+    utils = Utils(username, pwd, result_path)
+    # utils.set_nickname('小齐')
+    # utils.set_user_result_path()
+    utils.download_dataset(option=1)
+    utils.download_images()
+    utils.save_state()
 
-    utils = restore_from_file('utils_object')
-    print(utils)
+    # utils = restore_from_file('utils_object')
+    # print(utils)
