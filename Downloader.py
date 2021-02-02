@@ -54,66 +54,67 @@ def update_json(json_path, filename, shape):
 
 
 if __name__ == '__main__':
-    loop = asyncio.get_event_loop()
-
-    Min = ['+86 15137393991', '123456']
-    Qing = ['+86 15536902280', 'cike567']
-
-    result_path = './results'
-    username = Min[0]
-    pwd = Min[1]
-
-    # k = ./results/小齐/
-    # v = ./results/小齐/无锡电梯超员_24899_2021_01_04/xxx.json
-    json_path_dict = get_json_path_list(result_path)
-    imagePath_imageURL_dict = get_path_url_dict(json_path_dict)
-
-    # k = ./results/小齐/无锡电梯超员_24899_2021_01_04/20210104114539.jpg
-    # v = url
-    current_json_path = None
-    current_directory = None
-    update_list = dict()
-    for k, v in imagePath_imageURL_dict.items():
-        # update current_directory and current_json_dict when changing directory
-        if (not current_json_path) or (current_directory != os.path.dirname(k)):
-            current_directory = os.path.dirname(k)
-            # i = ./results/小齐/无锡电梯超员_24899_2021_01_04/xxx.json
-            for i in json_path_dict.values():
-                if os.path.dirname(i) == current_directory:
-                    current_json_path = i
-
-        loop.run_until_complete(download_image(v, k))
-        shape = cv2.imread(k, 0).shape
-
-        update_info = {v: shape}
-
-        if current_json_path not in update_list.keys():
-            update_list[current_json_path] = dict()
-
-        update_list[current_json_path].update(update_info)
-
-    for json_path, images in update_list.items():
-        with open(json_path) as json_file:
-            json_dataset = json.load(json_file)
-
-            new_images = []
-
-            for i in json_dataset['images']:
-                temp = i.copy()
-                temp['height'] = images[temp['url']][0]
-                temp['width'] = images[temp['url']][1]
-                new_images.append(temp)
-
-            new_dataset = {
-                "label_type": json_dataset['label_type'],
-                "images": new_images,
-                "label_category": json_dataset['label_category']
-            }
-
-        os.remove(json_path)
-        with open(json_path, 'w') as output:
-            json.dump(new_dataset, output, indent=4)
-            print("Saved to: ", json_path)
-            # json_file.seek(0)
-            # json.dump(new_dataset, json_file, indent=4)
-            # json_file.truncate()
+    pass
+    # loop = asyncio.get_event_loop()
+    #
+    # Min = ['+86 15137393991', '123456']
+    # Qing = ['+86 15536902280', 'cike567']
+    #
+    # result_path = './results'
+    # username = Min[0]
+    # pwd = Min[1]
+    #
+    # # k = ./results/小齐/
+    # # v = ./results/小齐/无锡电梯超员_24899_2021_01_04/xxx.json
+    # json_path_dict = get_json_path_list(result_path)
+    # imagePath_imageURL_dict = get_path_url_dict(json_path_dict)
+    #
+    # # k = ./results/小齐/无锡电梯超员_24899_2021_01_04/20210104114539.jpg
+    # # v = url
+    # current_json_path = None
+    # current_directory = None
+    # update_list = dict()
+    # for k, v in imagePath_imageURL_dict.items():
+    #     # update current_directory and current_json_dict when changing directory
+    #     if (not current_json_path) or (current_directory != os.path.dirname(k)):
+    #         current_directory = os.path.dirname(k)
+    #         # i = ./results/小齐/无锡电梯超员_24899_2021_01_04/xxx.json
+    #         for i in json_path_dict.values():
+    #             if os.path.dirname(i) == current_directory:
+    #                 current_json_path = i
+    #
+    #     loop.run_until_complete(download_image(v, k))
+    #     shape = cv2.imread(k, 0).shape
+    #
+    #     update_info = {v: shape}
+    #
+    #     if current_json_path not in update_list.keys():
+    #         update_list[current_json_path] = dict()
+    #
+    #     update_list[current_json_path].update(update_info)
+    #
+    # for json_path, images in update_list.items():
+    #     with open(json_path) as json_file:
+    #         json_dataset = json.load(json_file)
+    #
+    #         new_images = []
+    #
+    #         for i in json_dataset['images']:
+    #             temp = i.copy()
+    #             temp['height'] = images[temp['url']][0]
+    #             temp['width'] = images[temp['url']][1]
+    #             new_images.append(temp)
+    #
+    #         new_dataset = {
+    #             "label_type": json_dataset['label_type'],
+    #             "images": new_images,
+    #             "label_category": json_dataset['label_category']
+    #         }
+    #
+    #     os.remove(json_path)
+    #     with open(json_path, 'w') as output:
+    #         json.dump(new_dataset, output, indent=4)
+    #         print("Saved to: ", json_path)
+    #         # json_file.seek(0)
+    #         # json.dump(new_dataset, json_file, indent=4)
+    #         # json_file.truncate()

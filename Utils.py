@@ -107,8 +107,8 @@ class Utils:
         self.loop = asyncio.get_event_loop()
         self.username = username
         self.pwd = pwd
-        self.result_path = result_path # ./results
-        self.user_result_path = None # ./results/Sam
+        self.result_path = result_path  # ./results
+        self.user_result_path = None  # ./results/Sam
         self.nickname = None
         self.user_uuid = None
         self.user_token = None
@@ -230,7 +230,7 @@ class Utils:
 
         return label_json
 
-    def get_dataset(self):
+    def get_dataset(self, option):
         self.user_uuid, self.user_token = self.get_user_info()
         task_json = self.get_task_info()
 
@@ -258,6 +258,10 @@ class Utils:
 
                     label_json = self.get_label_info(task_uuid=k, image_uuid=obj['uuid'], user_token=self.user_token)
                     label = label_json['data']['items'][0]['label']
+                    if option == 1:
+                        if len(label) == 0:
+                            print("No labels: ", obj['filename'])
+                            continue
                     image = image_register(image_obj=obj, input_label=label)
                     images.append(image)
 
@@ -286,9 +290,17 @@ class Utils:
             else:
                 print("Already downloaded")
 
-    def download_dataset(self):
+    def download_dataset(self, option=None):
         # for published tasks which are "COMMITTED' and "ACHIEVED"
-        datasets = self.get_dataset()
+        if option is None:
+            pass
+        elif option == 1:
+            print("Download option: download images with labels")
+        elif option == 2:
+            print("Download option: download all images, with or without labels")
+        else:
+            print("Not open it yet")
+        datasets = self.get_dataset(option)
         nickname = self.loop.run_until_complete(self.get_nickname())
         self.nickname = nickname
         self.user_result_path = os.path.join(self.result_path, self.nickname)
@@ -390,6 +402,7 @@ class Utils:
         with open('utils_object', 'wb') as output:
             pickle.dump(state, output)
 
+
 if __name__ == "__main__":
     Min = ['+86 15137393991', '123456']
     Qing = ['+86 15536902280', 'cike567']
@@ -401,7 +414,5 @@ if __name__ == "__main__":
     utils = Utils(username, pwd, result_path)
     # utils.set_nickname('小齐')
     # utils.set_user_result_path()
-    utils.download_dataset()
-    utils.download_images()
-
-
+    utils.download_dataset(option=1)
+    # utils.download_images()
