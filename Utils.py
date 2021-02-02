@@ -306,13 +306,33 @@ class Utils:
                 print("Already downloaded")
 
     def download_dataset(self, option=None, which_task=None):
+        """
+            Download dataset only, only json file would be downloaded
+
+            Input user info -> get user tasks list -> get datasets info via tasks -> get image info via datasets
+
+            Only those task with acceptable status would be downloaded
+
+            You can chose a specific task to download
+
+            Parameters
+            ----------
+            option : int
+                option=1: Download option: download images with labels
+
+            which_task : str
+                task name, which task to be downloaded
+
+            Returns
+            -------
+            Save to folder: /results/username/task_name/datasets/XXX.json
+
+            """
         # for published tasks which are "COMMITTED' and "ACHIEVED"
         if option is None:
-            pass
+            print("Download option: download all images, with or without labels")
         elif option == 1:
             print("Download option: download images with labels")
-        elif option == 2:
-            print("Download option: download all images, with or without labels")
         else:
             print("Not open it yet")
             return
@@ -356,6 +376,21 @@ class Utils:
         return update_list
 
     def download_images(self, which_task=None):
+        """
+        Download images, and update width, height same time
+
+        You can chose a specific task to download
+
+        Parameters
+        ----------
+        which_task : str
+            task name, which task to be downloaded
+
+        Returns
+        -------
+        Save to folder: /results/username/task_name/datasets/
+
+        """
         imagePath_imageURL_dict = self.get_path_url_dict(which_task)
 
         if len(imagePath_imageURL_dict) == 0:
@@ -430,6 +465,8 @@ class Utils:
 
 
 if __name__ == "__main__":
+    # TODO: localization
+    # TODO: download in batches
     Min = ['+86 15137393991', '123456']
     Qing = ['+86 15536902280', 'cike567']
 
