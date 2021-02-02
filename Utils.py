@@ -230,7 +230,7 @@ class Utils:
 
         return label_json
 
-    def get_dataset(self, option):
+    def get_dataset(self, option, which_task):
         self.user_uuid, self.user_token = self.get_user_info()
         task_json = self.get_task_info()
 
@@ -241,7 +241,15 @@ class Utils:
         accept_status = ['COMMITTED', 'ARCHIVED']
         datasets = dict()
 
+        # k: task uuid
+        # v: task
         for k, v in tasks.items():
+            # if this taks is not which task we want to download
+            # jump to the next one
+            # if which_task is None, just download everything
+            if which_task is not None:
+                if v['task_name'] != which_task:
+                    continue
             # Only acceptable tasks will be read
             if v['status'] in accept_status:
                 # dataset_list actually is a image list with their label info
@@ -274,9 +282,16 @@ class Utils:
                 datasets[v['task_name']] = {'result': result, 'task_username': v['task_username'],
                                             'executor_username': v['executor_username']}
 
+        if len(datasets) == 0 and which_task is not None:
+            print("This task does not exist")
+
         return datasets
 
     def save_to_folder(self, datasets):
+        if len(datasets) == 0:
+            print("Nothing to save")
+            return
+
         for task_name, data in datasets.items():
             self.valid_dataset.append(task_name)
             name = task_name + ".json"
@@ -290,7 +305,7 @@ class Utils:
             else:
                 print("Already downloaded")
 
-    def download_dataset(self, option=None):
+    def download_dataset(self, option=None, which_task=None):
         # for published tasks which are "COMMITTED' and "ACHIEVED"
         if option is None:
             pass
@@ -300,7 +315,8 @@ class Utils:
             print("Download option: download all images, with or without labels")
         else:
             print("Not open it yet")
-        datasets = self.get_dataset(option)
+            return
+        datasets = self.get_dataset(option, which_task)
         nickname = self.loop.run_until_complete(self.get_nickname())
         self.nickname = nickname
         self.user_result_path = os.path.join(self.result_path, self.nickname)
@@ -339,8 +355,13 @@ class Utils:
 
         return update_list
 
-    def download_images(self, download_options=None):
-        imagePath_imageURL_dict = self.get_path_url_dict()
+    def download_images(self, which_task=None):
+        imagePath_imageURL_dict = self.get_path_url_dict(which_task)
+
+        if len(imagePath_imageURL_dict) == 0:
+            print("Nothing to download")
+            return
+
         update_list = self.get_update_list(imagePath_imageURL_dict)
 
         for json_path, images in update_list.items():
@@ -366,14 +387,17 @@ class Utils:
                 json.dump(new_dataset, output, indent=4)
                 print("Updated to: ", json_path)
 
-    # k = ./results/小齐/无锡电梯超员_24899_2021_01_04/20210104114539.jpg
-    # v = url
-    def get_path_url_dict(self):
+    def get_path_url_dict(self, which_task):
         result = dict()
+        # k = ./results/小齐/
+        # v = ./results/小齐/无锡电梯超员_24899_2021_01_04/xxx.json
         for k, v in self.json_path.items():
-            if v.split('/')[-2] in self.downloaded_dataset:
-                print("It is already been downloaded")
-                continue
+            # if which is not none
+            # check each json, if it is not target one
+            # jump to the next one
+            if which_task is not None:
+                if v.split('/')[-2] != which_task:
+                    continue
 
             with open(v) as json_file:
                 j = json.load(json_file)
@@ -381,6 +405,8 @@ class Utils:
                     filename = i['filename']
                     image_url = i['url']
 
+                    # k = ./results/小齐/无锡电梯超员_24899_2021_01_04/20210104114539.jpg
+                    # v = url
                     result[os.path.join(k, filename)] = image_url
 
         return result
@@ -414,5 +440,5 @@ if __name__ == "__main__":
     utils = Utils(username, pwd, result_path)
     # utils.set_nickname('小齐')
     # utils.set_user_result_path()
-    utils.download_dataset(option=1)
-    # utils.download_images()
+    utils.download_dataset(option=1, which_task="无锡电梯超员_24899_2021_01_04")
+    utils.download_images(which_task="无锡电梯超员_24899_2021_01_04")
