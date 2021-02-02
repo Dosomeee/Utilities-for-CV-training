@@ -102,6 +102,23 @@ def download_json(result, path, name):
         print("Saved to: ", name)
 
 
+def restore_from_file(filename):
+    with open(filename, 'rb') as input:
+        state = pickle.load(input)
+
+    temp = Utils(state['username'], state['pwd'], state['result_path'])
+
+    temp.user_result_path = state['user_result_path']
+    temp.nickname = state['nickname']
+    temp.task_json = state['task_json']
+    temp.valid_dataset = state['valid_dataset']
+    temp.downloaded_dataset = state['downloaded_dataset']
+    temp.accept_status = state['accept_status']
+    temp.json_path = state['json_path']
+
+    return temp
+
+
 class Utils:
     def __init__(self, username, pwd, result_path):
         self.loop = asyncio.get_event_loop()
@@ -122,6 +139,22 @@ class Utils:
 
     def update_downloaded_dataset(self):
         pass
+
+    def __str__(self):
+        state = {
+            "username": self.username,
+            "pwd": self.pwd,
+            "result_path": self.result_path,
+            "user_result_path": self.user_result_path,
+            "nickname": self.nickname,
+            "task_json": self.task_json,
+            "valid_dataset": self.valid_dataset,
+            "downloaded_dataset": self.downloaded_dataset,
+            "accept_status": self.accept_status,
+            "json_path": self.json_path
+        }
+
+        return str(state)
 
     def set_nickname(self, input_name):
         self.nickname = input_name
@@ -474,8 +507,12 @@ if __name__ == "__main__":
     username = Min[0]
     pwd = Min[1]
 
-    utils = Utils(username, pwd, result_path)
-    # utils.set_nickname('小齐')
-    # utils.set_user_result_path()
-    utils.download_dataset(option=1, which_task="无锡电梯超员_24899_2021_01_04")
-    utils.download_images(which_task="无锡电梯超员_24899_2021_01_04")
+    # utils = Utils(username, pwd, result_path)
+    # # utils.set_nickname('小齐')
+    # # utils.set_user_result_path()
+    # utils.download_dataset(option=1, which_task="无锡电梯超员_24899_2021_01_04")
+    # utils.download_images(which_task="无锡电梯超员_24899_2021_01_04")
+    # utils.save_state()
+
+    utils = restore_from_file('utils_object')
+    print(utils)
